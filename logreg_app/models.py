@@ -52,11 +52,28 @@ class User(models.Model):
     update_on = models.DateTimeField(auto_now=True)
     objects =UserManager()
 
+class BookManager(models.Manager):
+    
+    def book_validator(self, postData):
+        errors ={}
+        if len(postData['title']) < 1:
+            errors['title'] = "Title is required."
+        if len(postData['desc'])< 5:
+            errors['desc'] ="Please be more descriptive"
+        existing_book = self.filter(title = postData['title'])
+        if existing_book:
+            errors['exist'] ="Your favorite book is already here"
+        return errors
+    
+
 class Book(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField()
-    favorites = models.ManyToManyField(User,related_name="favorite_books")
+    created_by = models.ForeignKey(User, related_name="creator_of_book", on_delete=models.CASCADE)
+    favorited_by = models.ManyToManyField(User,related_name="favorite_books")
     created_on = models.DateTimeField(auto_now_add=True)
     update_on = models.DateTimeField(auto_now=True)
+
+    objects = BookManager()
 
 

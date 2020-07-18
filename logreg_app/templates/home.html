@@ -3,10 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+    <title>Home Page</title>
 </head>
 <body>
-    <h1>Welcome {{request.session.user}}</h1>
-    <a href="/logout">Log out</a>
+    <div id="header">
+        <h1>Welcome, {{request.session.user}}</h1>
+        <a href="/logout">Log out</a>
+    </div>
+    <div class="main_content">
+        <div class="left_con">
+            <h1>Add A Book:</h1>
+            <form action="/add_book" method="POST">
+                {% csrf_token %}
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title">
+                <br>
+                <label for="desc">Description:</label>
+                <br>
+                <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+                <br>
+                <input type="submit" value="Add!">
+            </form>
+            <div id="errors">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="right_con">
+            <h1>All Books</h1>
+            {% for book in books %}
+                <div>
+                    <h2><a href="/book/{{book.id}}">{{book.title}}</a></h2>
+                    <p>{{book.desc}}</p>
+                    <p>Added by: {{book.created_by.first_name}} {{book.created_by.last_name}}</p>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

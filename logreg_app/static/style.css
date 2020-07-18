@@ -23,3 +23,22 @@
     background-color: lightcoral;
     border-radius: 2px;
 }
+
+#header h1{
+    display: inline-block;
+    margin: 10px;
+    padding-right: 75%;
+}
+
+.left_con{ 
+    width: 48%;
+    vertical-align: top;
+    display: inline-block;
+
+}
+.right_con{
+    width: 48%;
+    vertical-align: top;
+    display: inline-block;
+
+}

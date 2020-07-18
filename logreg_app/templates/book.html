@@ -35,6 +35,13 @@
                 <input type="submit" value="Edit">
         </form>
         {% endif %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
     <div class="right_con">
         <h3>Users Who Like this Book:</h3>
@@ -43,6 +50,12 @@
             <li>{{fav.first_name}}</li>
         {% endfor %}
         </ul>
+        {% if this_user in this_book.favorited_by.all %}
+        <a href="/unlike/{{this_book.id}}">UnLike</a>
+        {% else %}
+        <a href="/like/{{this_book.id}}">Like</a>
+        {% endif %}
+        
     </div>
 </body>
 </html>

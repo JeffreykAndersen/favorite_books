@@ -75,6 +75,20 @@ def edit(request, id):
     edited_book.save()
     return redirect('/main')
 
+def like_book(request, id):
+    user_liking = User.objects.get(id=request.session['id'])
+    book_liked = Book.objects.get(id=id)
+    user_liking.favorite_books.add(book_liked)
+    return redirect('/book/'+str(id))
+
+def unlike(request, id):
+    user_unliking = User.objects.get(id=request.session['id'])
+    book_unliked = Book.objects.get(id=id)
+    user_unliking.favorite_books.remove(book_unliked)
+    return redirect('/book/'+str(id))
+
+
+
 def book_page(request, id):
     if 'user' not in request.session:
         return redirect('/')

@@ -60,9 +60,6 @@ class BookManager(models.Manager):
             errors['title'] = "Title is required."
         if len(postData['desc'])< 5:
             errors['desc'] ="Please be more descriptive"
-        existing_book = self.filter(title = postData['title'])
-        if existing_book:
-            errors['exist'] ="Your favorite book is already here"
         return errors
     
 

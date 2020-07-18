@@ -20,7 +20,7 @@
         <p>Added by {{this_book.created_by.first_name}} on: {{this_book.created_on}}</p>
         <p>Updated:{{this_book.update_on}}</p>
 
-        {%else%}
+        {% else %}
         <form action="/edit/{{this_book.id}}" method="POST">
             {% csrf_token %}
             <label for="title">Title:</label>

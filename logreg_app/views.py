@@ -25,6 +25,7 @@ def register(request):
 def login(request):
     result = User.objects.log_authenticate(request.POST['user_email'], request.POST['user_password'])
     if result == False:
+        messages.error(request, "Invalid Credentials")
         return redirect('/')
     if result == True:
         user = User.objects.get(email=request.POST['user_email'])
